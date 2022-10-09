@@ -1,3 +1,4 @@
+![Build](https://github.com/ingomohr/ettin/actions/workflows/mvn-build-main.yml/badge.svg?branch=main)
 [![License](https://img.shields.io/badge/License-EPL_2.0-red.svg)](https://opensource.org/licenses/EPL-2.0)
 # Ettin
 
