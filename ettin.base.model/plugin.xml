@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated EttinBase -->
+      <package
+            uri="org.ingomohr.ettin.base.model"
+            class="org.ingomohr.ettin.base.model.ModelPackage"
+            genModel="model/EttinBase.xcore"/>
+   </extension>
+
+</plugin>
