@@ -1,6 +1,6 @@
 ### What does this project contain?
 - The model classes
-- ... all of which are generated out of the `model/EttingBase.xcore`file.
+	- ... all of which are generated out of the `model/EttinBase.xcore`file.
 - The only non-generated file in the source folder is `module-info.java`.
 
 
