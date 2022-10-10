@@ -2,7 +2,14 @@ package org.ingomohr.ettin.base.model
 
 class Token {
 	
+	refers TerminalDefinition terminalDefinition
 	
+}
+
+class TerminalDefinition {
+	
+	String name
+	String regex
 	
 }
 

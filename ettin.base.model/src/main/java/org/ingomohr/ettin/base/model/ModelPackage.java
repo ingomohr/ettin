@@ -2,8 +2,10 @@
  */
 package org.ingomohr.ettin.base.model;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -65,13 +67,22 @@ public interface ModelPackage extends EPackage {
 	int TOKEN = 0;
 
 	/**
+	 * The feature id for the '<em><b>Terminal Definition</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN__TERMINAL_DEFINITION = 0;
+
+	/**
 	 * The number of structural features of the '<em>Token</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_FEATURE_COUNT = 0;
+	int TOKEN_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Token</em>' class.
@@ -81,6 +92,52 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int TOKEN_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.ingomohr.ettin.base.model.impl.TerminalDefinitionImpl <em>Terminal Definition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ingomohr.ettin.base.model.impl.TerminalDefinitionImpl
+	 * @see org.ingomohr.ettin.base.model.impl.ModelPackageImpl#getTerminalDefinition()
+	 * @generated
+	 */
+	int TERMINAL_DEFINITION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERMINAL_DEFINITION__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Regex</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERMINAL_DEFINITION__REGEX = 1;
+
+	/**
+	 * The number of structural features of the '<em>Terminal Definition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERMINAL_DEFINITION_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Terminal Definition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERMINAL_DEFINITION_OPERATION_COUNT = 0;
 
 
 	/**
@@ -92,6 +149,49 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getToken();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.ingomohr.ettin.base.model.Token#getTerminalDefinition <em>Terminal Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Terminal Definition</em>'.
+	 * @see org.ingomohr.ettin.base.model.Token#getTerminalDefinition()
+	 * @see #getToken()
+	 * @generated
+	 */
+	EReference getToken_TerminalDefinition();
+
+	/**
+	 * Returns the meta object for class '{@link org.ingomohr.ettin.base.model.TerminalDefinition <em>Terminal Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Terminal Definition</em>'.
+	 * @see org.ingomohr.ettin.base.model.TerminalDefinition
+	 * @generated
+	 */
+	EClass getTerminalDefinition();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ingomohr.ettin.base.model.TerminalDefinition#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.ingomohr.ettin.base.model.TerminalDefinition#getName()
+	 * @see #getTerminalDefinition()
+	 * @generated
+	 */
+	EAttribute getTerminalDefinition_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ingomohr.ettin.base.model.TerminalDefinition#getRegex <em>Regex</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Regex</em>'.
+	 * @see org.ingomohr.ettin.base.model.TerminalDefinition#getRegex()
+	 * @see #getTerminalDefinition()
+	 * @generated
+	 */
+	EAttribute getTerminalDefinition_Regex();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -125,6 +225,40 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TOKEN = eINSTANCE.getToken();
+
+		/**
+		 * The meta object literal for the '<em><b>Terminal Definition</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TOKEN__TERMINAL_DEFINITION = eINSTANCE.getToken_TerminalDefinition();
+
+		/**
+		 * The meta object literal for the '{@link org.ingomohr.ettin.base.model.impl.TerminalDefinitionImpl <em>Terminal Definition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ingomohr.ettin.base.model.impl.TerminalDefinitionImpl
+		 * @see org.ingomohr.ettin.base.model.impl.ModelPackageImpl#getTerminalDefinition()
+		 * @generated
+		 */
+		EClass TERMINAL_DEFINITION = eINSTANCE.getTerminalDefinition();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TERMINAL_DEFINITION__NAME = eINSTANCE.getTerminalDefinition_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Regex</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TERMINAL_DEFINITION__REGEX = eINSTANCE.getTerminalDefinition_Regex();
 
 	}
 
