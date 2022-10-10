@@ -113,8 +113,26 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getToken_Offset() {
+		return (EAttribute)tokenEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getToken_Text() {
+		return (EAttribute)tokenEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getToken_TerminalDefinition() {
-		return (EReference)tokenEClass.getEStructuralFeatures().get(0);
+		return (EReference)tokenEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -173,6 +191,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Create classes and their features
 		tokenEClass = createEClass(TOKEN);
+		createEAttribute(tokenEClass, TOKEN__OFFSET);
+		createEAttribute(tokenEClass, TOKEN__TEXT);
 		createEReference(tokenEClass, TOKEN__TERMINAL_DEFINITION);
 
 		terminalDefinitionEClass = createEClass(TERMINAL_DEFINITION);
@@ -214,6 +234,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(tokenEClass, Token.class, "Token", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getToken_Offset(), theEcorePackage.getEInt(), "offset", null, 0, 1, Token.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getToken_Text(), theEcorePackage.getEString(), "text", null, 0, 1, Token.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getToken_TerminalDefinition(), this.getTerminalDefinition(), null, "terminalDefinition", null, 0, 1, Token.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(terminalDefinitionEClass, TerminalDefinition.class, "TerminalDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -2,6 +2,8 @@ package org.ingomohr.ettin.base.model
 
 class Token {
 	
+	int offset
+	String text
 	refers TerminalDefinition terminalDefinition
 	
 }

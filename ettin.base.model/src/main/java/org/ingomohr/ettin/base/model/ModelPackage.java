@@ -67,13 +67,31 @@ public interface ModelPackage extends EPackage {
 	int TOKEN = 0;
 
 	/**
+	 * The feature id for the '<em><b>Offset</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN__OFFSET = 0;
+
+	/**
+	 * The feature id for the '<em><b>Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN__TEXT = 1;
+
+	/**
 	 * The feature id for the '<em><b>Terminal Definition</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN__TERMINAL_DEFINITION = 0;
+	int TOKEN__TERMINAL_DEFINITION = 2;
 
 	/**
 	 * The number of structural features of the '<em>Token</em>' class.
@@ -82,7 +100,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_FEATURE_COUNT = 1;
+	int TOKEN_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Token</em>' class.
@@ -149,6 +167,28 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getToken();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ingomohr.ettin.base.model.Token#getOffset <em>Offset</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Offset</em>'.
+	 * @see org.ingomohr.ettin.base.model.Token#getOffset()
+	 * @see #getToken()
+	 * @generated
+	 */
+	EAttribute getToken_Offset();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ingomohr.ettin.base.model.Token#getText <em>Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Text</em>'.
+	 * @see org.ingomohr.ettin.base.model.Token#getText()
+	 * @see #getToken()
+	 * @generated
+	 */
+	EAttribute getToken_Text();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.ingomohr.ettin.base.model.Token#getTerminalDefinition <em>Terminal Definition</em>}'.
@@ -225,6 +265,22 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TOKEN = eINSTANCE.getToken();
+
+		/**
+		 * The meta object literal for the '<em><b>Offset</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TOKEN__OFFSET = eINSTANCE.getToken_Offset();
+
+		/**
+		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TOKEN__TEXT = eINSTANCE.getToken_Text();
 
 		/**
 		 * The meta object literal for the '<em><b>Terminal Definition</b></em>' reference feature.
