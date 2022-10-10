@@ -80,6 +80,7 @@
 
 	<modules>
 		<module>ettin.base.model</module>
+		<module>ettin.base.scanner</module>
 	</modules>
 
 </project>
