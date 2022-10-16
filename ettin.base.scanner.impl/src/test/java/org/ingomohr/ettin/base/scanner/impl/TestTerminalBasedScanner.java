@@ -10,7 +10,6 @@ import org.ingomohr.ettin.base.model.ModelFactory;
 import org.ingomohr.ettin.base.model.TerminalDefinition;
 import org.ingomohr.ettin.base.model.Token;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class TestTerminalBasedScanner {
@@ -72,18 +71,55 @@ class TestTerminalBasedScanner {
 	}
 
 	@Test
-	@Disabled
-	void scan_DefinitionsWithMultipleCharsAndDocContainsUnknownTokensToo_AllTokensFoundAndMappedAndUnknownTokensAreUnmapped() {
-		TerminalDefinition tdAbc = mkTD("CharA", "abc");
-		TerminalDefinition td345 = mkTD("Char9", "345");
+	void scan_DefinitionsOfSimpleChar_AllTokensFoundAndMapped() {
+		TerminalDefinition tdA = mkTD("CharA", "a");
+		TerminalDefinition td9 = mkTD("Char9", "9");
+		TerminalDefinition tdEq = mkTD("Char=", "=");
+
+		objUT.getDefinitions().add(tdA);
+		objUT.getDefinitions().add(td9);
+		objUT.getDefinitions().add(tdEq);
+
+		List<Token> tokens = objUT.scan("a=99a");
+
+		int i = -1;
+		assertEquals(mkTStr(++i, "a", tdA), toStr(tokens.get(i)));
+		assertEquals(mkTStr(++i, "=", tdEq), toStr(tokens.get(i)));
+		assertEquals(mkTStr(++i, "9", td9), toStr(tokens.get(i)));
+		assertEquals(mkTStr(++i, "9", td9), toStr(tokens.get(i)));
+		assertEquals(mkTStr(++i, "a", tdA), toStr(tokens.get(i)));
+
+		assertSame(tdA, tokens.get(0).getTerminalDefinition());
+		assertSame(tdEq, tokens.get(1).getTerminalDefinition());
+		assertSame(td9, tokens.get(2).getTerminalDefinition());
+		assertSame(td9, tokens.get(3).getTerminalDefinition());
+		assertSame(tdA, tokens.get(4).getTerminalDefinition());
+
+		assertEquals(5, tokens.size());
+	}
+
+	@Test
+	void scan_DefinitionsWithMultipleChars_AllTokensFoundAndMapped() {
+		TerminalDefinition tdAbc = mkTD("CharAbc", "abc");
+		TerminalDefinition td345 = mkTD("Char345", "345");
 
 		objUT.getDefinitions().add(tdAbc);
 		objUT.getDefinitions().add(td345);
 
-		List<Token> tokens = objUT.scan(" abc=X@3a345 34 b bc ab");
+		List<Token> tokens = objUT.scan("abc345abc");
+
+		printTokens(tokens);
+
+		int i = 0;
+		assertEquals(mkTStr(0, "abc", tdAbc), toStr(tokens.get(i++)));
+		assertEquals(mkTStr(3, "345", td345), toStr(tokens.get(i++)));
+		assertEquals(mkTStr(6, "abc", tdAbc), toStr(tokens.get(i++)));
+
+		assertSame(tdAbc, tokens.get(0).getTerminalDefinition());
+		assertSame(td345, tokens.get(1).getTerminalDefinition());
+		assertSame(tdAbc, tokens.get(2).getTerminalDefinition());
 
 		assertEquals(3, tokens.size());
-
 	}
 
 	private TerminalDefinition mkTD(String name, String regex) {
@@ -110,6 +146,17 @@ class TestTerminalBasedScanner {
 		TerminalDefinition def = token.getTerminalDefinition();
 		return "offset=" + token.getOffset() + ", name='" + token.getText() + "', def="
 				+ (def != null ? def.getName() : "-");
+	}
+
+	private void printTokens(List<Token> tokens) {
+		System.out.println("### Tokens ###");
+
+		for (Token token : tokens) {
+			System.out.println(" - Offset=" + token.getOffset() + ", Text='" + token.getText() + "', TD="
+					+ token.getTerminalDefinition());
+		}
+
+		System.out.println("##############");
 	}
 
 }

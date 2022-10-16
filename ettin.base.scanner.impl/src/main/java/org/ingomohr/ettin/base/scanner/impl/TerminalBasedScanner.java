@@ -89,7 +89,7 @@ public class TerminalBasedScanner implements Scanner {
 				acceptingDFAsForLastAcceptingTerminalEndIndex = accepting;
 			}
 
-			if (dfaCandidates.isEmpty()) {
+			if (dfaCandidates.isEmpty() || i == cs.length - 1) {
 
 				Token token = ModelFactory.eINSTANCE.createToken();
 				token.setOffset(start);
@@ -115,7 +115,10 @@ public class TerminalBasedScanner implements Scanner {
 					lastIndexWithAcceptingTerminalEnd = -1;
 					acceptingDFAsForLastAcceptingTerminalEndIndex = new ArrayList<>();
 				} else {
-					start = i + 1;
+					int numOffsetToStepBack = tokenText.length() - 1;
+					tokenText = tokenText.substring(0, 1);
+					token.setText(tokenText);
+					start = i + 1 - numOffsetToStepBack;
 				}
 				mapDfaToTd.keySet().forEach(dfa -> dfa.reset());
 				dfaCandidates = new ArrayList<>(mapDfaToTd.keySet());
