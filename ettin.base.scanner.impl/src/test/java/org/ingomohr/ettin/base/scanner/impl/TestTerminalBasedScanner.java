@@ -10,6 +10,7 @@ import org.ingomohr.ettin.base.model.ModelFactory;
 import org.ingomohr.ettin.base.model.TerminalDefinition;
 import org.ingomohr.ettin.base.model.Token;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class TestTerminalBasedScanner {
@@ -51,8 +52,6 @@ class TestTerminalBasedScanner {
 
 		List<Token> tokens = objUT.scan(" a=X@9a ");
 
-		assertEquals(8, tokens.size());
-
 		int i = -1;
 		assertEquals(mkTStr(++i, " ", null), toStr(tokens.get(i)));
 		assertEquals(mkTStr(++i, "a", tdA), toStr(tokens.get(i)));
@@ -68,6 +67,23 @@ class TestTerminalBasedScanner {
 		assertSame(tdAt, tokens.get(4).getTerminalDefinition());
 		assertSame(td9, tokens.get(5).getTerminalDefinition());
 		assertSame(tdA, tokens.get(6).getTerminalDefinition());
+
+		assertEquals(8, tokens.size());
+	}
+
+	@Test
+	@Disabled
+	void scan_DefinitionsWithMultipleCharsAndDocContainsUnknownTokensToo_AllTokensFoundAndMappedAndUnknownTokensAreUnmapped() {
+		TerminalDefinition tdAbc = mkTD("CharA", "abc");
+		TerminalDefinition td345 = mkTD("Char9", "345");
+
+		objUT.getDefinitions().add(tdAbc);
+		objUT.getDefinitions().add(td345);
+
+		List<Token> tokens = objUT.scan(" abc=X@3a345 34 b bc ab");
+
+		assertEquals(3, tokens.size());
+
 	}
 
 	private TerminalDefinition mkTD(String name, String regex) {
