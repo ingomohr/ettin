@@ -105,6 +105,24 @@ class TestTerminalBasedScanner {
 		assertEquals(3, tokens.size());
 	}
 
+	@Test
+	void scan_DefinitionsWithMultipleCharsAndSingleChars_FirstMatchingTokenDefinitionWins() {
+		TerminalDefinition tdAbc = mkTD("CharAbc", "abc");
+		TerminalDefinition tdA1 = mkTD("CharA1", "a");
+		TerminalDefinition tdA2 = mkTD("CharA2", "a");
+
+		objUT.getDefinitions().add(tdAbc);
+		objUT.getDefinitions().add(tdA1);
+		objUT.getDefinitions().add(tdA2);
+
+		List<Token> tokens = executeScan(objUT, "aabca");
+
+		assertThat(tokens.get(0), matchesToken(0, "a", tdA1));
+		assertThat(tokens.get(1), matchesToken(1, "abc", tdAbc));
+		assertThat(tokens.get(2), matchesToken(4, "a", tdA1));
+		assertEquals(3, tokens.size());
+	}
+
 	private List<Token> executeScan(TerminalBasedScanner objectUnderTest, String document) {
 		List<Token> tokens = objectUnderTest.scan(document);
 		printTokens(tokens);
