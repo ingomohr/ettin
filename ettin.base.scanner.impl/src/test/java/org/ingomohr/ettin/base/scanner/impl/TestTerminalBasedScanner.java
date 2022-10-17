@@ -145,6 +145,25 @@ class TestTerminalBasedScanner {
 		assertEquals(7, tokens.size());
 	}
 
+	@Test
+	void scan_DefinitionsWithMultipleChars_TokensAreScannedCaseInsensitively() {
+
+		TerminalDefinition tdHello = mkTD("Hello", "Hello");
+		TerminalDefinition tdWorld = mkTD("worlD", "worlD");
+
+		objUT.getDefinitions().add(tdHello);
+		objUT.getDefinitions().add(tdWorld);
+
+		List<Token> tokens = executeScan(objUT, "Helloworld");
+		assertThat(tokens.get(0), matchesToken(0, "Hello", tdHello));
+		assertThat(tokens.get(1), matchesToken(5, "w", null));
+		assertThat(tokens.get(2), matchesToken(6, "o", null));
+		assertThat(tokens.get(3), matchesToken(7, "r", null));
+		assertThat(tokens.get(4), matchesToken(8, "l", null));
+		assertThat(tokens.get(5), matchesToken(9, "d", null));
+		assertEquals(6, tokens.size());
+	}
+
 	private List<Token> executeScan(TerminalBasedScanner objectUnderTest, String document) {
 		List<Token> tokens = objectUnderTest.scan(document);
 		printTokens(tokens);
@@ -168,7 +187,8 @@ class TestTerminalBasedScanner {
 					descr.appendText("\n  Text '" + expectedText + "'");
 				}
 				if (!matchTerminalDef) {
-					descr.appendText("\n  TerminalDef '" + expectedTerminalDef + "'");
+					String info = toTerminalDefinitionInfo(expectedTerminalDef);
+					descr.appendText("\n  TerminalDef '" + info + "'");
 				}
 			}
 

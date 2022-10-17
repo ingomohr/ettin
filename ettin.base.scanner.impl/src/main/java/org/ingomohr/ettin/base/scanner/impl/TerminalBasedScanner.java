@@ -22,6 +22,8 @@ import org.ingomohr.ettin.base.scanner.impl.dfa.factory.SimpleCharSequenceDFAFac
  */
 public class TerminalBasedScanner implements Scanner {
 
+	private static final int UNSET = -1;
+
 	private List<TerminalDefinition> definitions;
 
 	public TerminalBasedScanner(List<TerminalDefinition> definitions) {
@@ -70,8 +72,8 @@ public class TerminalBasedScanner implements Scanner {
 		List<DFA> dfaCandidates = new ArrayList<>(mapDfaToTd.keySet());
 
 		int start = 0;
-		int lastIndexWithAcceptingTerminalEnd = -1;
-		List<DFA> acceptingDFAsForLastAcceptingTerminalEndIndex = new ArrayList<>();
+		int acceptedTerminalEndIndex = UNSET;
+		List<DFA> acceptedTerminalDFAs = new ArrayList<>();
 
 		StringBuilder terminalTextBuilder = new StringBuilder();
 
@@ -83,10 +85,10 @@ public class TerminalBasedScanner implements Scanner {
 			dfaCandidates.forEach(dfa -> dfa.accept(c));
 			dfaCandidates = dfaCandidates.stream().dropWhile(dfa -> dfa.getCurrentStatus() == null).toList();
 
-			List<DFA> accepting = dfaCandidates.stream().filter(dfa -> dfa.isAccepting()).toList();
-			if (!accepting.isEmpty()) {
-				lastIndexWithAcceptingTerminalEnd = i;
-				acceptingDFAsForLastAcceptingTerminalEndIndex = accepting;
+			List<DFA> acceptingDFAs = dfaCandidates.stream().filter(dfa -> dfa.isAccepting()).toList();
+			if (!acceptingDFAs.isEmpty()) {
+				acceptedTerminalEndIndex = i;
+				acceptedTerminalDFAs = acceptingDFAs;
 			}
 
 			if (dfaCandidates.isEmpty() || i == cs.length - 1) {
@@ -99,27 +101,27 @@ public class TerminalBasedScanner implements Scanner {
 
 				terminalTextBuilder = new StringBuilder();
 
-				if (lastIndexWithAcceptingTerminalEnd != -1) {
-					DFA acceptingDfa = acceptingDFAsForLastAcceptingTerminalEndIndex.get(0);
+				if (acceptedTerminalEndIndex != UNSET) {
+					DFA acceptingDfa = acceptedTerminalDFAs.get(0);
 					TerminalDefinition td = mapDfaToTd.get(acceptingDfa);
 
-					int numOfCharsToCut = i - lastIndexWithAcceptingTerminalEnd;
+					int numOfCharsToCut = i - acceptedTerminalEndIndex;
 					tokenText = tokenText.substring(0, tokenText.length() - numOfCharsToCut);
 					token.setText(tokenText);
 
 					token.setTerminalDefinition(td);
 
-					start = lastIndexWithAcceptingTerminalEnd + 1;
-					i = start - 1;
-					
-					lastIndexWithAcceptingTerminalEnd = -1;
-					acceptingDFAsForLastAcceptingTerminalEndIndex = new ArrayList<>();
+					start = acceptedTerminalEndIndex + 1;
+
+					acceptedTerminalEndIndex = UNSET;
+					acceptedTerminalDFAs = new ArrayList<>();
 				} else {
 					int numOffsetToStepBack = tokenText.length() - 1;
 					tokenText = tokenText.substring(0, 1);
 					token.setText(tokenText);
 					start = i + 1 - numOffsetToStepBack;
 				}
+				i = start - 1;
 				mapDfaToTd.keySet().forEach(dfa -> dfa.reset());
 				dfaCandidates = new ArrayList<>(mapDfaToTd.keySet());
 			}
