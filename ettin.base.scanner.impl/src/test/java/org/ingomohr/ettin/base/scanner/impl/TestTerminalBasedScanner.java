@@ -123,6 +123,28 @@ class TestTerminalBasedScanner {
 		assertEquals(3, tokens.size());
 	}
 
+	@Test
+	void scan_DefinitionsWithMultipleCharsAndUnknownTokens_AllTokensFoundAndMappedAndOnlyUnknownTokensAreUnmapped() {
+		TerminalDefinition tdHello = mkTD("CharHello", "hello");
+		TerminalDefinition tdWorld = mkTD("CharWorld", "world");
+		TerminalDefinition tdEq = mkTD("CharEq", "=");
+
+		objUT.getDefinitions().add(tdHello);
+		objUT.getDefinitions().add(tdWorld);
+		objUT.getDefinitions().add(tdEq);
+
+		List<Token> tokens = executeScan(objUT, " hello= worldly");
+
+		assertThat(tokens.get(0), matchesToken(0, " ", null));
+		assertThat(tokens.get(1), matchesToken(1, "hello", tdHello));
+		assertThat(tokens.get(2), matchesToken(6, "=", tdEq));
+		assertThat(tokens.get(3), matchesToken(7, " ", null));
+		assertThat(tokens.get(4), matchesToken(8, "world", tdWorld));
+		assertThat(tokens.get(5), matchesToken(13, "l", null));
+		assertThat(tokens.get(6), matchesToken(14, "y", null));
+		assertEquals(7, tokens.size());
+	}
+
 	private List<Token> executeScan(TerminalBasedScanner objectUnderTest, String document) {
 		List<Token> tokens = objectUnderTest.scan(document);
 		printTokens(tokens);
