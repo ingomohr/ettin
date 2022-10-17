@@ -1,11 +1,15 @@
 package org.ingomohr.ettin.base.scanner.impl;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.List;
+import java.util.Objects;
 
+import org.hamcrest.Description;
+import org.hamcrest.DiagnosingMatcher;
+import org.hamcrest.Matcher;
 import org.ingomohr.ettin.base.model.ModelFactory;
 import org.ingomohr.ettin.base.model.TerminalDefinition;
 import org.ingomohr.ettin.base.model.Token;
@@ -49,23 +53,16 @@ class TestTerminalBasedScanner {
 		objUT.getDefinitions().add(tdEq);
 		objUT.getDefinitions().add(tdAt);
 
-		List<Token> tokens = objUT.scan(" a=X@9a ");
+		List<Token> tokens = executeScan(objUT, " a=X@9a ");
 
-		int i = -1;
-		assertEquals(mkTStr(++i, " ", null), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "a", tdA), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "=", tdEq), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "X", null), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "@", tdAt), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "9", td9), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "a", tdA), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, " ", null), toStr(tokens.get(i)));
-
-		assertSame(tdA, tokens.get(1).getTerminalDefinition());
-		assertSame(tdEq, tokens.get(2).getTerminalDefinition());
-		assertSame(tdAt, tokens.get(4).getTerminalDefinition());
-		assertSame(td9, tokens.get(5).getTerminalDefinition());
-		assertSame(tdA, tokens.get(6).getTerminalDefinition());
+		assertThat(tokens.get(0), matchesToken(0, " ", null));
+		assertThat(tokens.get(1), matchesToken(1, "a", tdA));
+		assertThat(tokens.get(2), matchesToken(2, "=", tdEq));
+		assertThat(tokens.get(3), matchesToken(3, "X", null));
+		assertThat(tokens.get(4), matchesToken(4, "@", tdAt));
+		assertThat(tokens.get(5), matchesToken(5, "9", td9));
+		assertThat(tokens.get(6), matchesToken(6, "a", tdA));
+		assertThat(tokens.get(7), matchesToken(7, " ", null));
 
 		assertEquals(8, tokens.size());
 	}
@@ -80,20 +77,13 @@ class TestTerminalBasedScanner {
 		objUT.getDefinitions().add(td9);
 		objUT.getDefinitions().add(tdEq);
 
-		List<Token> tokens = objUT.scan("a=99a");
+		List<Token> tokens = executeScan(objUT, "a=99a");
 
-		int i = -1;
-		assertEquals(mkTStr(++i, "a", tdA), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "=", tdEq), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "9", td9), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "9", td9), toStr(tokens.get(i)));
-		assertEquals(mkTStr(++i, "a", tdA), toStr(tokens.get(i)));
-
-		assertSame(tdA, tokens.get(0).getTerminalDefinition());
-		assertSame(tdEq, tokens.get(1).getTerminalDefinition());
-		assertSame(td9, tokens.get(2).getTerminalDefinition());
-		assertSame(td9, tokens.get(3).getTerminalDefinition());
-		assertSame(tdA, tokens.get(4).getTerminalDefinition());
+		assertThat(tokens.get(0), matchesToken(0, "a", tdA));
+		assertThat(tokens.get(1), matchesToken(1, "=", tdEq));
+		assertThat(tokens.get(2), matchesToken(2, "9", td9));
+		assertThat(tokens.get(3), matchesToken(3, "9", td9));
+		assertThat(tokens.get(4), matchesToken(4, "a", tdA));
 
 		assertEquals(5, tokens.size());
 	}
@@ -106,20 +96,67 @@ class TestTerminalBasedScanner {
 		objUT.getDefinitions().add(tdAbc);
 		objUT.getDefinitions().add(td345);
 
-		List<Token> tokens = objUT.scan("abc345abc");
+		List<Token> tokens = executeScan(objUT, "abc345abc");
 
-		printTokens(tokens);
-
-		int i = 0;
-		assertEquals(mkTStr(0, "abc", tdAbc), toStr(tokens.get(i++)));
-		assertEquals(mkTStr(3, "345", td345), toStr(tokens.get(i++)));
-		assertEquals(mkTStr(6, "abc", tdAbc), toStr(tokens.get(i++)));
-
-		assertSame(tdAbc, tokens.get(0).getTerminalDefinition());
-		assertSame(td345, tokens.get(1).getTerminalDefinition());
-		assertSame(tdAbc, tokens.get(2).getTerminalDefinition());
+		assertThat(tokens.get(0), matchesToken(0, "abc", tdAbc));
+		assertThat(tokens.get(1), matchesToken(3, "345", td345));
+		assertThat(tokens.get(2), matchesToken(6, "abc", tdAbc));
 
 		assertEquals(3, tokens.size());
+	}
+
+	private List<Token> executeScan(TerminalBasedScanner objectUnderTest, String document) {
+		List<Token> tokens = objectUnderTest.scan(document);
+		printTokens(tokens);
+		return tokens;
+	}
+
+	private Matcher<Token> matchesToken(int expectedOffset, String expectedText,
+			TerminalDefinition expectedTerminalDef) {
+		return new DiagnosingMatcher<Token>() {
+
+			boolean matchOffset = true;
+			boolean matchText = true;
+			boolean matchTerminalDef = true;
+
+			@Override
+			public void describeTo(Description descr) {
+				if (!matchOffset) {
+					descr.appendText("\n  Offset '" + expectedOffset + "'");
+				}
+				if (!matchText) {
+					descr.appendText("\n  Text '" + expectedText + "'");
+				}
+				if (!matchTerminalDef) {
+					descr.appendText("\n  TerminalDef '" + expectedTerminalDef + "'");
+				}
+			}
+
+			@Override
+			protected boolean matches(Object item, Description mismatchDescription) {
+				Token actual = (Token) item;
+
+				if (actual.getOffset() != expectedOffset) {
+					matchOffset = false;
+					mismatchDescription.appendText("\n  Offset was: '" + actual.getOffset() + "'");
+				}
+
+				if (!Objects.equals(expectedText, actual.getText())) {
+					matchText = false;
+					mismatchDescription.appendText("\n  Text was: '" + actual.getText() + "'");
+				}
+
+				TerminalDefinition actualTDef = actual.getTerminalDefinition();
+				if (expectedTerminalDef != actualTDef) { // must be the same def
+					matchTerminalDef = false;
+
+					String actualTDefInfo = toTerminalDefinitionInfo(actualTDef);
+					mismatchDescription.appendText("\n  Def was: '" + actualTDefInfo + "'");
+				}
+
+				return matchOffset && matchText && matchTerminalDef;
+			}
+		};
 	}
 
 	private TerminalDefinition mkTD(String name, String regex) {
@@ -129,34 +166,19 @@ class TestTerminalBasedScanner {
 		return def;
 	}
 
-	private String mkTStr(int offset, String text, TerminalDefinition definition) {
-		Token token = mkT(offset, text, definition);
-		return toStr(token);
-	}
-
-	private Token mkT(int offset, String text, TerminalDefinition definition) {
-		Token token = ModelFactory.eINSTANCE.createToken();
-		token.setOffset(offset);
-		token.setTerminalDefinition(definition);
-		token.setText(text);
-		return token;
-	}
-
-	private String toStr(Token token) {
-		TerminalDefinition def = token.getTerminalDefinition();
-		return "offset=" + token.getOffset() + ", name='" + token.getText() + "', def="
-				+ (def != null ? def.getName() : "-");
-	}
-
 	private void printTokens(List<Token> tokens) {
 		System.out.println("### Tokens ###");
 
 		for (Token token : tokens) {
 			System.out.println(" - Offset=" + token.getOffset() + ", Text='" + token.getText() + "', TD="
-					+ token.getTerminalDefinition());
+					+ toTerminalDefinitionInfo(token.getTerminalDefinition()));
 		}
 
 		System.out.println("##############");
+	}
+
+	private String toTerminalDefinitionInfo(TerminalDefinition actualTDef) {
+		return actualTDef != null ? actualTDef.getName() : null;
 	}
 
 }
