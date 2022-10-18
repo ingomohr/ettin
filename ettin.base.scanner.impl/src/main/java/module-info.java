@@ -1,5 +1,5 @@
 import org.ingomohr.ettin.base.scanner.Scanner;
-import org.ingomohr.ettin.base.scanner.impl.TerminalBasedScanner;
+import org.ingomohr.ettin.base.scanner.impl.TerminalDefinitionBasedScanner;
 
 /**
  * Implementation module for a {@link Scanner}.
@@ -15,6 +15,6 @@ module ettin.base.scanner.impl {
 	
 	exports org.ingomohr.ettin.base.scanner.impl;
 
-	provides Scanner with TerminalBasedScanner;
+	provides Scanner with TerminalDefinitionBasedScanner;
 
 }

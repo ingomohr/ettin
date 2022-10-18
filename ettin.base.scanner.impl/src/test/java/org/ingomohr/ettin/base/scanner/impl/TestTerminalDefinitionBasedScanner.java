@@ -16,13 +16,13 @@ import org.ingomohr.ettin.base.model.Token;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TestTerminalBasedScanner {
+class TestTerminalDefinitionBasedScanner {
 
-	private TerminalBasedScanner objUT;
+	private TerminalDefinitionBasedScanner objUT;
 
 	@BeforeEach
 	void prep() {
-		objUT = new TerminalBasedScanner();
+		objUT = new TerminalDefinitionBasedScanner();
 	}
 
 	@Test
@@ -209,7 +209,7 @@ class TestTerminalBasedScanner {
 		assertEquals(5, tokens.size());
 	}
 
-	private List<Token> executeScan(TerminalBasedScanner objectUnderTest, String document) {
+	private List<Token> executeScan(TerminalDefinitionBasedScanner objectUnderTest, String document) {
 		List<Token> tokens = objectUnderTest.scan(document);
 		printTokens(tokens);
 		return tokens;

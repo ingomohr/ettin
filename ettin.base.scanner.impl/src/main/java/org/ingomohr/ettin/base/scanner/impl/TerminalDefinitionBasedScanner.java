@@ -15,22 +15,22 @@ import org.ingomohr.ettin.base.scanner.impl.dfa.DFA;
 import org.ingomohr.ettin.base.scanner.impl.dfa.factory.RegexDFAFactory;
 
 /**
- * Scans a string into tokens based on terminal definitions - each of which is
+ * Scans a string into tokens based terminal definitions - each of which is
  * specified with a regex.
  * 
  * @author ingomohr
  */
-public class TerminalBasedScanner implements Scanner {
+public class TerminalDefinitionBasedScanner implements Scanner {
 
 	private static final int UNSET = -1;
 
 	private List<TerminalDefinition> definitions;
 
-	public TerminalBasedScanner(List<TerminalDefinition> definitions) {
+	public TerminalDefinitionBasedScanner(List<TerminalDefinition> definitions) {
 		setDefinitions(definitions);
 	}
 
-	public TerminalBasedScanner() {
+	public TerminalDefinitionBasedScanner() {
 		this(new ArrayList<>());
 	}
 
