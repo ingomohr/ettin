@@ -33,7 +33,7 @@ public class DFATransition {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(target, tester);
+		return Objects.hash(tester);
 	}
 
 	@Override
