@@ -57,6 +57,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ModelPackage.TOKEN: return createToken();
+			case ModelPackage.TERMINAL_DEFINITION: return createTerminalDefinition();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -70,6 +71,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public Token createToken() {
 		TokenImpl token = new TokenImpl();
 		return token;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TerminalDefinition createTerminalDefinition() {
+		TerminalDefinitionImpl terminalDefinition = new TerminalDefinitionImpl();
+		return terminalDefinition;
 	}
 
 	/**

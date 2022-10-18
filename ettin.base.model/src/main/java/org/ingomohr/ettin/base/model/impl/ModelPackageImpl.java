@@ -2,13 +2,17 @@
  */
 package org.ingomohr.ettin.base.model.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.ingomohr.ettin.base.model.ModelFactory;
 import org.ingomohr.ettin.base.model.ModelPackage;
+import org.ingomohr.ettin.base.model.TerminalDefinition;
 import org.ingomohr.ettin.base.model.Token;
 
 /**
@@ -24,6 +28,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass tokenEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass terminalDefinitionEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -71,6 +82,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		isInited = true;
 
+		// Initialize simple dependencies
+		EcorePackage.eINSTANCE.eClass();
+
 		// Create package meta-data objects
 		theModelPackage.createPackageContents();
 
@@ -92,6 +106,60 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 */
 	public EClass getToken() {
 		return tokenEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getToken_Offset() {
+		return (EAttribute)tokenEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getToken_Text() {
+		return (EAttribute)tokenEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getToken_TerminalDefinition() {
+		return (EReference)tokenEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTerminalDefinition() {
+		return terminalDefinitionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTerminalDefinition_Name() {
+		return (EAttribute)terminalDefinitionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTerminalDefinition_Regex() {
+		return (EAttribute)terminalDefinitionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -123,6 +191,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Create classes and their features
 		tokenEClass = createEClass(TOKEN);
+		createEAttribute(tokenEClass, TOKEN__OFFSET);
+		createEAttribute(tokenEClass, TOKEN__TEXT);
+		createEReference(tokenEClass, TOKEN__TERMINAL_DEFINITION);
+
+		terminalDefinitionEClass = createEClass(TERMINAL_DEFINITION);
+		createEAttribute(terminalDefinitionEClass, TERMINAL_DEFINITION__NAME);
+		createEAttribute(terminalDefinitionEClass, TERMINAL_DEFINITION__REGEX);
 	}
 
 	/**
@@ -148,6 +223,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -156,6 +234,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(tokenEClass, Token.class, "Token", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getToken_Offset(), theEcorePackage.getEInt(), "offset", null, 0, 1, Token.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getToken_Text(), theEcorePackage.getEString(), "text", null, 0, 1, Token.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getToken_TerminalDefinition(), this.getTerminalDefinition(), null, "terminalDefinition", null, 0, 1, Token.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(terminalDefinitionEClass, TerminalDefinition.class, "TerminalDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTerminalDefinition_Name(), theEcorePackage.getEString(), "name", null, 0, 1, TerminalDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTerminalDefinition_Regex(), theEcorePackage.getEString(), "regex", null, 0, 1, TerminalDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
