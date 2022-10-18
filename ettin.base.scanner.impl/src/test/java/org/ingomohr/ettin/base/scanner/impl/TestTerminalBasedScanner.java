@@ -164,6 +164,51 @@ class TestTerminalBasedScanner {
 		assertEquals(6, tokens.size());
 	}
 
+	@Test
+	void scan_DefinitionsWithAsterisk_TokensAreScannedSuccessfully() {
+		TerminalDefinition tdA = mkTD("a*");
+		TerminalDefinition tdBc = mkTD("b*c");
+
+		objUT.getDefinitions().add(tdA);
+		objUT.getDefinitions().add(tdBc);
+
+		List<Token> tokens = executeScan(objUT, "aaabbbbc");
+		assertThat(tokens.get(0), matchesToken(0, "aaa", tdA));
+		assertThat(tokens.get(1), matchesToken(3, "bbbbc", tdBc));
+		assertEquals(2, tokens.size());
+	}
+
+	@Test
+	void scan_DefinitionsWithEscapedAsterisk_TokensAreScannedSuccessfully() {
+		TerminalDefinition tdA = mkTD("a\\*");
+
+		objUT.getDefinitions().add(tdA);
+
+		List<Token> tokens = executeScan(objUT, "a*");
+		assertThat(tokens.get(0), matchesToken(0, "a*", tdA));
+		assertEquals(1, tokens.size());
+	}
+
+	@Test
+	void scan_DefinitionsWithEscapedAndUnescapedAsteriskAndUnknownTokens_TokensAreScannedSuccessfully() {
+		TerminalDefinition tdA = mkTD("a*");
+		TerminalDefinition tdBc = mkTD("b*c");
+		TerminalDefinition tdCAst = mkTD("c\\*");
+
+		objUT.getDefinitions().add(tdA);
+		objUT.getDefinitions().add(tdBc);
+		objUT.getDefinitions().add(tdCAst);
+
+		List<Token> tokens = executeScan(objUT, "aaaaaaaaaxbbbbcc* ");
+		assertThat(tokens.get(0), matchesToken(0, "aaaaaaaaa", tdA));
+		assertThat(tokens.get(1), matchesToken(9, "x", null));
+		assertThat(tokens.get(2), matchesToken(10, "bbbbc", tdBc));
+		assertThat(tokens.get(3), matchesToken(15, "c*", tdCAst));
+		assertThat(tokens.get(4), matchesToken(17, " ", null));
+
+		assertEquals(5, tokens.size());
+	}
+
 	private List<Token> executeScan(TerminalBasedScanner objectUnderTest, String document) {
 		List<Token> tokens = objectUnderTest.scan(document);
 		printTokens(tokens);
@@ -224,6 +269,10 @@ class TestTerminalBasedScanner {
 		def.setName(name);
 		def.setRegex(regex);
 		return def;
+	}
+
+	private TerminalDefinition mkTD(String regex) {
+		return mkTD(regex, regex);
 	}
 
 	private void printTokens(List<Token> tokens) {

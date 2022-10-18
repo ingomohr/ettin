@@ -12,7 +12,7 @@ import org.ingomohr.ettin.base.model.TerminalDefinition;
 import org.ingomohr.ettin.base.model.Token;
 import org.ingomohr.ettin.base.scanner.Scanner;
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFA;
-import org.ingomohr.ettin.base.scanner.impl.dfa.factory.SimpleCharSequenceDFAFactory;
+import org.ingomohr.ettin.base.scanner.impl.dfa.factory.RegexDFAFactory;
 
 /**
  * Scans a string into tokens based on terminal definitions - each of which is
@@ -134,7 +134,7 @@ public class TerminalBasedScanner implements Scanner {
 		LinkedHashMap<DFA, TerminalDefinition> map = new LinkedHashMap<>();
 
 		for (TerminalDefinition td : definitions) {
-			DFA dfa = new SimpleCharSequenceDFAFactory().create(td.getRegex());
+			DFA dfa = new RegexDFAFactory().create(td.getRegex());
 			map.put(dfa, td);
 		}
 
