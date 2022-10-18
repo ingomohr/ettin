@@ -11,9 +11,19 @@ import java.util.function.Predicate;
  */
 public class DFATransition {
 
+	private DFAStatus source;
+
 	private DFAStatus target;
 
 	private Predicate<Character> tester;
+
+	public DFAStatus getSource() {
+		return source;
+	}
+
+	public void setSource(DFAStatus source) {
+		this.source = source;
+	}
 
 	public DFAStatus getTarget() {
 		return target;
@@ -50,7 +60,7 @@ public class DFATransition {
 
 	@Override
 	public String toString() {
-		return "DFATransition [target=" + target + ", tester=" + tester + "]";
+		return "DFATransition [source=" + source + ",target=" + target + ", tester=" + tester + "]";
 	}
 
 }

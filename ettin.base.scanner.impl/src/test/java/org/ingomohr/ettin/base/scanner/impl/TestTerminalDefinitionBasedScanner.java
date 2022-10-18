@@ -42,7 +42,7 @@ class TestTerminalDefinitionBasedScanner {
 	}
 
 	@Test
-	void scan_DefinitionsOfSimpleCharAndDocContainsUnknownTokensToo_AllTokensFoundAndMappedAndOnlyUnknownTokensAreUnmapped() {
+	void scan_DefinitionsOfSimpleChar_InputContainsUnknownTokens_AllTokensFoundAndMappedAndOnlyUnknownTokensAreUnmapped() {
 		TerminalDefinition tdA = mkTD("CharA", "a");
 		TerminalDefinition td9 = mkTD("Char9", "9");
 		TerminalDefinition tdEq = mkTD("Char=", "=");
@@ -68,7 +68,7 @@ class TestTerminalDefinitionBasedScanner {
 	}
 
 	@Test
-	void scan_DefinitionsOfSimpleChar_AllTokensFoundAndMapped() {
+	void scan_DefinitionsOfSimpleChar_InputMatches_AllTokensFoundAndMapped() {
 		TerminalDefinition tdA = mkTD("CharA", "a");
 		TerminalDefinition td9 = mkTD("Char9", "9");
 		TerminalDefinition tdEq = mkTD("Char=", "=");
@@ -89,7 +89,7 @@ class TestTerminalDefinitionBasedScanner {
 	}
 
 	@Test
-	void scan_DefinitionsWithMultipleChars_AllTokensFoundAndMapped() {
+	void scan_DefinitionsWithMultipleChars_InputMatches_AllTokensFoundAndMapped() {
 		TerminalDefinition tdAbc = mkTD("CharAbc", "abc");
 		TerminalDefinition td345 = mkTD("Char345", "345");
 
@@ -106,7 +106,7 @@ class TestTerminalDefinitionBasedScanner {
 	}
 
 	@Test
-	void scan_DefinitionsWithMultipleCharsAndSingleChars_FirstMatchingTokenDefinitionWins() {
+	void scan_DefinitionsWithMultipleCharsAndSingleChars_InputMatches_FirstMatchingTokenDefinitionWins() {
 		TerminalDefinition tdAbc = mkTD("CharAbc", "abc");
 		TerminalDefinition tdA1 = mkTD("CharA1", "a");
 		TerminalDefinition tdA2 = mkTD("CharA2", "a");
@@ -124,7 +124,7 @@ class TestTerminalDefinitionBasedScanner {
 	}
 
 	@Test
-	void scan_DefinitionsWithMultipleCharsAndUnknownTokens_AllTokensFoundAndMappedAndOnlyUnknownTokensAreUnmapped() {
+	void scan_DefinitionsWithMultipleChars_InputContainsUnknownTokens_AllTokensFoundAndMappedAndOnlyUnknownTokensAreUnmapped() {
 		TerminalDefinition tdHello = mkTD("CharHello", "hello");
 		TerminalDefinition tdWorld = mkTD("CharWorld", "world");
 		TerminalDefinition tdEq = mkTD("CharEq", "=");
@@ -146,7 +146,7 @@ class TestTerminalDefinitionBasedScanner {
 	}
 
 	@Test
-	void scan_DefinitionsWithMultipleChars_TokensAreScannedCaseInsensitively() {
+	void scan_DefinitionsWithMultipleChars_InputContainsUnknownTokens_TokensAreScannedCaseInsensitively() {
 
 		TerminalDefinition tdHello = mkTD("Hello", "Hello");
 		TerminalDefinition tdWorld = mkTD("worlD", "worlD");
@@ -165,7 +165,7 @@ class TestTerminalDefinitionBasedScanner {
 	}
 
 	@Test
-	void scan_DefinitionsWithAsterisk_TokensAreScannedSuccessfully() {
+	void scan_DefinitionsWithAsterisk_InputMatches_TokensAreScannedSuccessfully() {
 		TerminalDefinition tdA = mkTD("a*");
 		TerminalDefinition tdBc = mkTD("b*c");
 
@@ -179,7 +179,7 @@ class TestTerminalDefinitionBasedScanner {
 	}
 
 	@Test
-	void scan_DefinitionsWithEscapedAsterisk_TokensAreScannedSuccessfully() {
+	void scan_DefinitionsWithEscapedAsterisk_InputMatches_TokensAreScannedSuccessfully() {
 		TerminalDefinition tdA = mkTD("a\\*");
 
 		objUT.getDefinitions().add(tdA);
@@ -190,7 +190,7 @@ class TestTerminalDefinitionBasedScanner {
 	}
 
 	@Test
-	void scan_DefinitionsWithEscapedAndUnescapedAsteriskAndUnknownTokens_TokensAreScannedSuccessfully() {
+	void scan_DefinitionsWithEscapedAndUnescapedAsterisk_UnknownTokensInInput_TokensAreScannedSuccessfully() {
 		TerminalDefinition tdA = mkTD("a*");
 		TerminalDefinition tdBc = mkTD("b*c");
 		TerminalDefinition tdCAst = mkTD("c\\*");
@@ -207,6 +207,62 @@ class TestTerminalDefinitionBasedScanner {
 		assertThat(tokens.get(4), matchesToken(17, " ", null));
 
 		assertEquals(5, tokens.size());
+	}
+
+	@Test
+	void scan_DefinitionsWithPlus_InputMatches_TokensAreScannedSuccessfully() {
+		TerminalDefinition tdA = mkTD("aa+");
+		TerminalDefinition tdBc = mkTD("b+c");
+
+		objUT.getDefinitions().add(tdA);
+		objUT.getDefinitions().add(tdBc);
+
+		List<Token> tokens = executeScan(objUT, "aabc");
+		assertThat(tokens.get(0), matchesToken(0, "aa", tdA));
+		assertThat(tokens.get(1), matchesToken(2, "bc", tdBc));
+		assertEquals(2, tokens.size());
+	}
+
+	@Test
+	void scan_DefinitionsWithEscapedPlus_InputMatches_TokensAreScannedSuccessfully() {
+		TerminalDefinition tdA = mkTD("aa\\+");
+		TerminalDefinition tdBc = mkTD("b\\+c");
+
+		objUT.getDefinitions().add(tdA);
+		objUT.getDefinitions().add(tdBc);
+
+		List<Token> tokens = executeScan(objUT, "aa+b+c");
+		assertThat(tokens.get(0), matchesToken(0, "aa+", tdA));
+		assertThat(tokens.get(1), matchesToken(3, "b+c", tdBc));
+		assertEquals(2, tokens.size());
+	}
+
+	@Test
+	void scan_DefinitionsWithEscapedPlus_InputDoesntMatch_TokensAreNotMapped() {
+		TerminalDefinition tdA = mkTD("aa\\+");
+		TerminalDefinition tdBc = mkTD("b\\+c");
+
+		objUT.getDefinitions().add(tdA);
+		objUT.getDefinitions().add(tdBc);
+
+		List<Token> tokens = executeScan(objUT, "a+b++c");
+		assertThat(tokens.get(0), matchesToken(0, "a", null));
+		assertThat(tokens.get(1), matchesToken(1, "+", null));
+		assertThat(tokens.get(2), matchesToken(2, "b", null));
+		assertThat(tokens.get(3), matchesToken(3, "+", null));
+		assertThat(tokens.get(4), matchesToken(4, "+", null));
+		assertThat(tokens.get(5), matchesToken(5, "c", null));
+		assertEquals(6, tokens.size());
+	}
+
+	@Test
+	void scan_DefinitionsWithPlus_InputDoesntMatch_TokensAreNotMapped() {
+		TerminalDefinition tdAPlus = mkTD("aa+");
+
+		objUT.getDefinitions().add(tdAPlus);
+
+		List<Token> tokens = executeScan(objUT, "a");
+		assertThat(tokens.get(0), matchesToken(0, "a", null));
 	}
 
 	private List<Token> executeScan(TerminalDefinitionBasedScanner objectUnderTest, String document) {

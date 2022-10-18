@@ -3,6 +3,7 @@ package org.ingomohr.ettin.base.scanner.impl.dfa.factory;
 import static java.util.Objects.requireNonNull;
 
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Predicate;
 
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFA;
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFAStatus;
@@ -18,7 +19,7 @@ public class RegexDFAFactory implements DFAFactory {
 	@Override
 	public DFA create(String specification) {
 		requireNonNull(specification);
-		
+
 		DFA dfa = new DFA();
 		dfa.setStart(new DFAStatus());
 
@@ -36,18 +37,23 @@ public class RegexDFAFactory implements DFAFactory {
 			}
 			case '*' -> {
 				if (!isEscaped) {
-					DFATransition transition = new DFATransition();
-					transition.setTarget(currentStatus);
-					transition.setTester(mostRecentTransitionRef.get().getTester());
-					currentStatus.getTransitions().add(transition);
-					mostRecentTransitionRef.set(transition);
+					currentStatus = createTransitionForAsterisk(currentStatus, mostRecentTransitionRef);
 				} else {
-					currentStatus = recordNewStatusForNormalChar(currentStatus, mostRecentTransitionRef, c);
+					currentStatus = createTransitionForNormalChar(currentStatus, mostRecentTransitionRef, c);
+				}
+				isEscaped = false;
+			}
+			case '+' -> {
+				if (!isEscaped) {
+					currentStatus = createTransitionForPlus(currentStatus, mostRecentTransitionRef);
+
+				} else {
+					currentStatus = createTransitionForNormalChar(currentStatus, mostRecentTransitionRef, c);
 				}
 				isEscaped = false;
 			}
 			default -> {
-				currentStatus = recordNewStatusForNormalChar(currentStatus, mostRecentTransitionRef, c);
+				currentStatus = createTransitionForNormalChar(currentStatus, mostRecentTransitionRef, c);
 				isEscaped = false;
 			}
 			}
@@ -60,17 +66,33 @@ public class RegexDFAFactory implements DFAFactory {
 		return dfa;
 	}
 
-	private DFAStatus recordNewStatusForNormalChar(DFAStatus source,
+	private DFAStatus createTransitionForPlus(DFAStatus source,
+			AtomicReference<DFATransition> mostRecentTransitionRef) {
+		mostRecentTransitionRef.set(createTransition(source, source, mostRecentTransitionRef.get().getTester()));
+		return source;
+	}
+
+	private DFAStatus createTransitionForAsterisk(DFAStatus source,
+			AtomicReference<DFATransition> mostRecentTransitionRef) {
+		mostRecentTransitionRef.get().getSource().setAccepting(true);
+		mostRecentTransitionRef.set(createTransition(source, source, mostRecentTransitionRef.get().getTester()));
+		return source;
+	}
+
+	private DFAStatus createTransitionForNormalChar(DFAStatus source,
 			AtomicReference<DFATransition> mostRecentTransitionRef, char c) {
 		DFAStatus target = new DFAStatus();
-		DFATransition transition = new DFATransition();
-		transition.setTarget(target);
-		transition.setTester(someChar -> someChar == c);
-		source.getTransitions().add(transition);
-
-		mostRecentTransitionRef.set(transition);
-
+		mostRecentTransitionRef.set(createTransition(source, target, someChar -> someChar == c));
 		return target;
+	}
+
+	private DFATransition createTransition(DFAStatus source, DFAStatus target, Predicate<Character> tester) {
+		DFATransition transition = new DFATransition();
+		transition.setSource(source);
+		transition.setTarget(target);
+		transition.setTester(tester);
+		source.getTransitions().add(transition);
+		return transition;
 	}
 
 }
