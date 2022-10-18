@@ -45,6 +45,12 @@ public class DFA {
 		return null;
 	}
 
+	public boolean acceptAll(String s) {
+		for (final char c : s.toCharArray()) accept(c);
+
+		return isAccepting();
+	}
+
 	/**
 	 * Returns <code>true</code> if the current status of the DFA is accepting.
 	 * 
