@@ -44,10 +44,10 @@ class TestRegexDFAFactory {
 	@Test
 	void simpleString() {
 		DFA dfa = objUT.create("abcde");
-		dfa.acceptAll("abcde");
+		assertEquals(true, dfa.acceptAll("abcde"));
 		assertEquals(true, dfa.isAccepting());
 
-		dfa.acceptAll("f");
+		assertEquals(false, dfa.acceptAll("f"));
 		assertEquals(false, dfa.isAccepting());
 	}
 
