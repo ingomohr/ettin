@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFA;
-import org.ingomohr.ettin.base.scanner.impl.dfa.DFAStatus;
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFATransition;
 import org.ingomohr.ettin.base.scanner.impl.dfa.factory.DFAFactory;
 import org.ingomohr.ettin.base.scanner.impl.dfa.factory.regex.strategy.NormalCharConsumingStrategy;
@@ -26,7 +25,6 @@ public class RegexDFAFactory implements DFAFactory {
 		requireNonNull(specification);
 
 		DFA dfa = new DFA();
-		dfa.setStart(new DFAStatus());
 
 		RegexDFAFactoryStatus status = new RegexDFAFactoryStatus();
 		status.setCurrentStatus(dfa.getStart());
@@ -54,8 +52,6 @@ public class RegexDFAFactory implements DFAFactory {
 		}
 
 		status.getCurrentStatus().setAccepting(true);
-
-		dfa.setCurrentStatus(dfa.getStart());
 
 		return dfa;
 	}
