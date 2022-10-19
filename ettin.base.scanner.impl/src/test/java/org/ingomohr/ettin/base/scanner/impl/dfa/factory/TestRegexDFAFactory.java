@@ -42,6 +42,16 @@ class TestRegexDFAFactory {
 	}
 
 	@Test
+	void simpleString() {
+		DFA dfa = objUT.create("abcde");
+		dfa.acceptAll("abcde");
+		assertEquals(true, dfa.isAccepting());
+
+		dfa.acceptAll("f");
+		assertEquals(false, dfa.isAccepting());
+	}
+
+	@Test
 	void simplePlus0_DoesntMatch() {
 		DFA dfa = objUT.create("a+");
 		assertEquals(false, dfa.isAccepting());
