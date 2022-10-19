@@ -3,6 +3,7 @@ package org.ingomohr.ettin.base.scanner.impl.dfa.factory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFA;
+import org.ingomohr.ettin.base.scanner.impl.dfa.factory.regex.RegexDFAFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

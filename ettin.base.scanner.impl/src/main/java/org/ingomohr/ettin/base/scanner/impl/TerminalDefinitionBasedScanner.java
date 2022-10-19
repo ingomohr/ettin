@@ -12,7 +12,7 @@ import org.ingomohr.ettin.base.model.TerminalDefinition;
 import org.ingomohr.ettin.base.model.Token;
 import org.ingomohr.ettin.base.scanner.Scanner;
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFA;
-import org.ingomohr.ettin.base.scanner.impl.dfa.factory.RegexDFAFactory;
+import org.ingomohr.ettin.base.scanner.impl.dfa.factory.regex.RegexDFAFactory;
 
 /**
  * Scans a string into tokens based terminal definitions - each of which is
