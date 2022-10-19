@@ -46,6 +46,20 @@ public class DFA {
 	}
 
 	/**
+	 * Tests the given string, updates the current {@link DFAStatus} and returns
+	 * true or false.
+	 * 
+	 * @param s input String to test.
+	 * @return true after DFA was updated for given String.
+	 *         false if there was no transition for one of the chars.
+	 */
+	public boolean acceptAll(String s) {
+		for (final char c : s.toCharArray()) accept(c);
+
+		return isAccepting();
+	}
+
+	/**
 	 * Returns <code>true</code> if the current status of the DFA is accepting.
 	 * 
 	 * @return <code>true</code> if current status is accepting.
