@@ -15,7 +15,7 @@ import org.ingomohr.ettin.base.scanner.impl.dfa.DFATransition;
 public class DFATransitionFactory {
 
 	/**
-	 * Creates a new transition from the given source to the given tartet status.
+	 * Creates a new transition from the given source to the given target status.
 	 * 
 	 * @param source the source status. Cannot be <code>null</code>.
 	 * @param target the target status. Cannot be <code>null</code>.
