@@ -1,5 +1,7 @@
 package org.ingomohr.ettin.base.scanner.impl.dfa;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 /**
@@ -21,6 +23,15 @@ public class DFA {
 	private DFAStatus start;
 
 	private DFAStatus currentStatus;
+
+	/**
+	 * Creates a new DFA - with a non-accepting start status (that is also the
+	 * current status).
+	 */
+	public DFA() {
+		setStart(new DFAStatus());
+		setCurrentStatus(getStart());
+	}
 
 	/**
 	 * Tests the given character, updates the current {@link DFAStatus} and returns
@@ -47,14 +58,17 @@ public class DFA {
 
 	/**
 	 * Tests the given string, updates the current {@link DFAStatus} and returns
-	 * true or false.
+	 * <code>true</code> if the DFA accepts the input.
 	 * 
-	 * @param s input String to test.
-	 * @return true after DFA was updated for given String.
-	 *         false if there was no transition for one of the chars.
+	 * @param s input String to test. Cannot be <code>null</code>.
+	 * @return <code>true</code> if DFA accepts given input. <code>false</code>
+	 *         otherwise.
 	 */
 	public boolean acceptAll(String s) {
-		for (final char c : s.toCharArray()) accept(c);
+		requireNonNull(s);
+		for (final char c : s.toCharArray()) {
+			accept(c);
+		}
 
 		return isAccepting();
 	}
