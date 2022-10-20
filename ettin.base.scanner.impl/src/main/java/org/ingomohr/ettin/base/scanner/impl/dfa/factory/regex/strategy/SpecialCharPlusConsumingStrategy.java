@@ -5,14 +5,13 @@ import java.util.function.Predicate;
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFAStatus;
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFATransition;
 import org.ingomohr.ettin.base.scanner.impl.dfa.factory.regex.RegexDFAFactoryStatus;
-import org.ingomohr.ettin.base.scanner.impl.dfa.factory.util.DFATransitionFactory;
 
 /**
  * Strategy to consume special char '+'.
  * 
  * @author ingomohr
  */
-public class SpecialCharPlusConsumingStrategy implements RegexFactoryCharacterConsumingStrategy {
+public class SpecialCharPlusConsumingStrategy extends AbstractRegexFactoryCharacterConsumingStrategy {
 
 	@Override
 	public boolean appliesTo(char c, RegexDFAFactoryStatus status) {
@@ -24,8 +23,8 @@ public class SpecialCharPlusConsumingStrategy implements RegexFactoryCharacterCo
 		DFAStatus source = status.getCurrentStatus();
 		DFATransition lastTransition = status.getCurrentTransition();
 		Predicate<Character> tester = lastTransition.getTester();
-		
-		DFATransition newTransition = new DFATransitionFactory().createTransition(source, source, tester);
+
+		DFATransition newTransition = createTransition(source, source, tester);
 		status.setEscapedCharacter(false);
 		return newTransition;
 	}

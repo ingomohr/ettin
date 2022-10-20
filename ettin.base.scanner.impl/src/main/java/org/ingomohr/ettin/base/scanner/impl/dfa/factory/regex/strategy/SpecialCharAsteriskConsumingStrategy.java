@@ -3,14 +3,13 @@ package org.ingomohr.ettin.base.scanner.impl.dfa.factory.regex.strategy;
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFAStatus;
 import org.ingomohr.ettin.base.scanner.impl.dfa.DFATransition;
 import org.ingomohr.ettin.base.scanner.impl.dfa.factory.regex.RegexDFAFactoryStatus;
-import org.ingomohr.ettin.base.scanner.impl.dfa.factory.util.DFATransitionFactory;
 
 /**
  * Strategy to consume special char '*'.
  * 
  * @author ingomohr
  */
-public class SpecialCharAsteriskConsumingStrategy implements RegexFactoryCharacterConsumingStrategy {
+public class SpecialCharAsteriskConsumingStrategy extends AbstractRegexFactoryCharacterConsumingStrategy {
 
 	@Override
 	public boolean appliesTo(char c, RegexDFAFactoryStatus status) {
@@ -19,13 +18,11 @@ public class SpecialCharAsteriskConsumingStrategy implements RegexFactoryCharact
 
 	@Override
 	public DFATransition apply(char c, RegexDFAFactoryStatus status) {
-		status.getCurrentTransition().getSource().setAccepting(true);
+		DFAStatus sourceAndTarget = status.getCurrentStatus();
+		DFATransition currentTransition = status.getCurrentTransition();
 
-		DFAStatus currentStatus = status.getCurrentStatus();
-
-		DFATransition newTransition = new DFATransitionFactory().createTransition(currentStatus, currentStatus,
-				status.getCurrentTransition().getTester());
-
+		DFATransition newTransition = createTransition(sourceAndTarget, sourceAndTarget, currentTransition.getTester());
+		currentTransition.getSource().setAccepting(true);
 		status.setEscapedCharacter(false);
 
 		return newTransition;
