@@ -58,6 +58,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 		switch (eClass.getClassifierID()) {
 			case ModelPackage.TOKEN: return createToken();
 			case ModelPackage.TERMINAL_DEFINITION: return createTerminalDefinition();
+			case ModelPackage.SYNTAX_TREE: return createSyntaxTree();
+			case ModelPackage.SYNTAX_TREE_NODE: return createSyntaxTreeNode();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -81,6 +83,26 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public TerminalDefinition createTerminalDefinition() {
 		TerminalDefinitionImpl terminalDefinition = new TerminalDefinitionImpl();
 		return terminalDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SyntaxTree createSyntaxTree() {
+		SyntaxTreeImpl syntaxTree = new SyntaxTreeImpl();
+		return syntaxTree;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SyntaxTreeNode createSyntaxTreeNode() {
+		SyntaxTreeNodeImpl syntaxTreeNode = new SyntaxTreeNodeImpl();
+		return syntaxTreeNode;
 	}
 
 	/**

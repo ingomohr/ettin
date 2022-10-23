@@ -78,6 +78,18 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.SYNTAX_TREE: {
+				SyntaxTree syntaxTree = (SyntaxTree)theEObject;
+				T result = caseSyntaxTree(syntaxTree);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.SYNTAX_TREE_NODE: {
+				SyntaxTreeNode syntaxTreeNode = (SyntaxTreeNode)theEObject;
+				T result = caseSyntaxTreeNode(syntaxTreeNode);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -109,6 +121,36 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTerminalDefinition(TerminalDefinition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Syntax Tree</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Syntax Tree</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSyntaxTree(SyntaxTree object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Syntax Tree Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Syntax Tree Node</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSyntaxTreeNode(SyntaxTreeNode object) {
 		return null;
 	}
 

@@ -157,6 +157,116 @@ public interface ModelPackage extends EPackage {
 	 */
 	int TERMINAL_DEFINITION_OPERATION_COUNT = 0;
 
+	/**
+	 * The meta object id for the '{@link org.ingomohr.ettin.base.model.impl.SyntaxTreeImpl <em>Syntax Tree</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ingomohr.ettin.base.model.impl.SyntaxTreeImpl
+	 * @see org.ingomohr.ettin.base.model.impl.ModelPackageImpl#getSyntaxTree()
+	 * @generated
+	 */
+	int SYNTAX_TREE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Root</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE__ROOT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Terminal Definitions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE__TERMINAL_DEFINITIONS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE__TOKENS = 2;
+
+	/**
+	 * The number of structural features of the '<em>Syntax Tree</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Syntax Tree</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.ingomohr.ettin.base.model.impl.SyntaxTreeNodeImpl <em>Syntax Tree Node</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ingomohr.ettin.base.model.impl.SyntaxTreeNodeImpl
+	 * @see org.ingomohr.ettin.base.model.impl.ModelPackageImpl#getSyntaxTreeNode()
+	 * @generated
+	 */
+	int SYNTAX_TREE_NODE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE_NODE__CHILDREN = 0;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE_NODE__PARENT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Tokens</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE_NODE__TOKENS = 2;
+
+	/**
+	 * The number of structural features of the '<em>Syntax Tree Node</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE_NODE_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Syntax Tree Node</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYNTAX_TREE_NODE_OPERATION_COUNT = 0;
+
 
 	/**
 	 * Returns the meta object for class '{@link org.ingomohr.ettin.base.model.Token <em>Token</em>}'.
@@ -232,6 +342,92 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTerminalDefinition_Regex();
+
+	/**
+	 * Returns the meta object for class '{@link org.ingomohr.ettin.base.model.SyntaxTree <em>Syntax Tree</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Syntax Tree</em>'.
+	 * @see org.ingomohr.ettin.base.model.SyntaxTree
+	 * @generated
+	 */
+	EClass getSyntaxTree();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ingomohr.ettin.base.model.SyntaxTree#getRoot <em>Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Root</em>'.
+	 * @see org.ingomohr.ettin.base.model.SyntaxTree#getRoot()
+	 * @see #getSyntaxTree()
+	 * @generated
+	 */
+	EReference getSyntaxTree_Root();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.ingomohr.ettin.base.model.SyntaxTree#getTerminalDefinitions <em>Terminal Definitions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Terminal Definitions</em>'.
+	 * @see org.ingomohr.ettin.base.model.SyntaxTree#getTerminalDefinitions()
+	 * @see #getSyntaxTree()
+	 * @generated
+	 */
+	EReference getSyntaxTree_TerminalDefinitions();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.ingomohr.ettin.base.model.SyntaxTree#getTokens <em>Tokens</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Tokens</em>'.
+	 * @see org.ingomohr.ettin.base.model.SyntaxTree#getTokens()
+	 * @see #getSyntaxTree()
+	 * @generated
+	 */
+	EReference getSyntaxTree_Tokens();
+
+	/**
+	 * Returns the meta object for class '{@link org.ingomohr.ettin.base.model.SyntaxTreeNode <em>Syntax Tree Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Syntax Tree Node</em>'.
+	 * @see org.ingomohr.ettin.base.model.SyntaxTreeNode
+	 * @generated
+	 */
+	EClass getSyntaxTreeNode();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.ingomohr.ettin.base.model.SyntaxTreeNode#getChildren <em>Children</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Children</em>'.
+	 * @see org.ingomohr.ettin.base.model.SyntaxTreeNode#getChildren()
+	 * @see #getSyntaxTreeNode()
+	 * @generated
+	 */
+	EReference getSyntaxTreeNode_Children();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.ingomohr.ettin.base.model.SyntaxTreeNode#getParent <em>Parent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Parent</em>'.
+	 * @see org.ingomohr.ettin.base.model.SyntaxTreeNode#getParent()
+	 * @see #getSyntaxTreeNode()
+	 * @generated
+	 */
+	EReference getSyntaxTreeNode_Parent();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.ingomohr.ettin.base.model.SyntaxTreeNode#getTokens <em>Tokens</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Tokens</em>'.
+	 * @see org.ingomohr.ettin.base.model.SyntaxTreeNode#getTokens()
+	 * @see #getSyntaxTreeNode()
+	 * @generated
+	 */
+	EReference getSyntaxTreeNode_Tokens();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -315,6 +511,74 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TERMINAL_DEFINITION__REGEX = eINSTANCE.getTerminalDefinition_Regex();
+
+		/**
+		 * The meta object literal for the '{@link org.ingomohr.ettin.base.model.impl.SyntaxTreeImpl <em>Syntax Tree</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ingomohr.ettin.base.model.impl.SyntaxTreeImpl
+		 * @see org.ingomohr.ettin.base.model.impl.ModelPackageImpl#getSyntaxTree()
+		 * @generated
+		 */
+		EClass SYNTAX_TREE = eINSTANCE.getSyntaxTree();
+
+		/**
+		 * The meta object literal for the '<em><b>Root</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYNTAX_TREE__ROOT = eINSTANCE.getSyntaxTree_Root();
+
+		/**
+		 * The meta object literal for the '<em><b>Terminal Definitions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYNTAX_TREE__TERMINAL_DEFINITIONS = eINSTANCE.getSyntaxTree_TerminalDefinitions();
+
+		/**
+		 * The meta object literal for the '<em><b>Tokens</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYNTAX_TREE__TOKENS = eINSTANCE.getSyntaxTree_Tokens();
+
+		/**
+		 * The meta object literal for the '{@link org.ingomohr.ettin.base.model.impl.SyntaxTreeNodeImpl <em>Syntax Tree Node</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ingomohr.ettin.base.model.impl.SyntaxTreeNodeImpl
+		 * @see org.ingomohr.ettin.base.model.impl.ModelPackageImpl#getSyntaxTreeNode()
+		 * @generated
+		 */
+		EClass SYNTAX_TREE_NODE = eINSTANCE.getSyntaxTreeNode();
+
+		/**
+		 * The meta object literal for the '<em><b>Children</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYNTAX_TREE_NODE__CHILDREN = eINSTANCE.getSyntaxTreeNode_Children();
+
+		/**
+		 * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYNTAX_TREE_NODE__PARENT = eINSTANCE.getSyntaxTreeNode_Parent();
+
+		/**
+		 * The meta object literal for the '<em><b>Tokens</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYNTAX_TREE_NODE__TOKENS = eINSTANCE.getSyntaxTreeNode_Tokens();
 
 	}
 
