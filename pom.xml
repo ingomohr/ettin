@@ -97,6 +97,7 @@
 		<module>ettin.base.model</module>
 		<module>ettin.base.scanner</module>
 		<module>ettin.base.scanner.impl</module>
+		<module>ettin.base.parser</module>
 	</modules>
 
 </project>

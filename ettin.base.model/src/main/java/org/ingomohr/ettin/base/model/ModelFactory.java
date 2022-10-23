@@ -40,6 +40,24 @@ public interface ModelFactory extends EFactory {
 	TerminalDefinition createTerminalDefinition();
 
 	/**
+	 * Returns a new object of class '<em>Syntax Tree</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Syntax Tree</em>'.
+	 * @generated
+	 */
+	SyntaxTree createSyntaxTree();
+
+	/**
+	 * Returns a new object of class '<em>Syntax Tree Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Syntax Tree Node</em>'.
+	 * @generated
+	 */
+	SyntaxTreeNode createSyntaxTreeNode();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.ingomohr.ettin.base.model.ModelFactory;
 import org.ingomohr.ettin.base.model.ModelPackage;
+import org.ingomohr.ettin.base.model.SyntaxTree;
+import org.ingomohr.ettin.base.model.SyntaxTreeNode;
 import org.ingomohr.ettin.base.model.TerminalDefinition;
 import org.ingomohr.ettin.base.model.Token;
 
@@ -35,6 +37,20 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass terminalDefinitionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass syntaxTreeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass syntaxTreeNodeEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -167,6 +183,78 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSyntaxTree() {
+		return syntaxTreeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSyntaxTree_Root() {
+		return (EReference)syntaxTreeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSyntaxTree_TerminalDefinitions() {
+		return (EReference)syntaxTreeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSyntaxTree_Tokens() {
+		return (EReference)syntaxTreeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSyntaxTreeNode() {
+		return syntaxTreeNodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSyntaxTreeNode_Children() {
+		return (EReference)syntaxTreeNodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSyntaxTreeNode_Parent() {
+		return (EReference)syntaxTreeNodeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSyntaxTreeNode_Tokens() {
+		return (EReference)syntaxTreeNodeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ModelFactory getModelFactory() {
 		return (ModelFactory)getEFactoryInstance();
 	}
@@ -198,6 +286,16 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		terminalDefinitionEClass = createEClass(TERMINAL_DEFINITION);
 		createEAttribute(terminalDefinitionEClass, TERMINAL_DEFINITION__NAME);
 		createEAttribute(terminalDefinitionEClass, TERMINAL_DEFINITION__REGEX);
+
+		syntaxTreeEClass = createEClass(SYNTAX_TREE);
+		createEReference(syntaxTreeEClass, SYNTAX_TREE__ROOT);
+		createEReference(syntaxTreeEClass, SYNTAX_TREE__TERMINAL_DEFINITIONS);
+		createEReference(syntaxTreeEClass, SYNTAX_TREE__TOKENS);
+
+		syntaxTreeNodeEClass = createEClass(SYNTAX_TREE_NODE);
+		createEReference(syntaxTreeNodeEClass, SYNTAX_TREE_NODE__CHILDREN);
+		createEReference(syntaxTreeNodeEClass, SYNTAX_TREE_NODE__PARENT);
+		createEReference(syntaxTreeNodeEClass, SYNTAX_TREE_NODE__TOKENS);
 	}
 
 	/**
@@ -241,6 +339,16 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(terminalDefinitionEClass, TerminalDefinition.class, "TerminalDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTerminalDefinition_Name(), theEcorePackage.getEString(), "name", null, 0, 1, TerminalDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTerminalDefinition_Regex(), theEcorePackage.getEString(), "regex", null, 0, 1, TerminalDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(syntaxTreeEClass, SyntaxTree.class, "SyntaxTree", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSyntaxTree_Root(), this.getSyntaxTreeNode(), null, "root", null, 0, 1, SyntaxTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSyntaxTree_TerminalDefinitions(), this.getTerminalDefinition(), null, "terminalDefinitions", null, 0, -1, SyntaxTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSyntaxTree_Tokens(), this.getToken(), null, "tokens", null, 0, -1, SyntaxTree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(syntaxTreeNodeEClass, SyntaxTreeNode.class, "SyntaxTreeNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSyntaxTreeNode_Children(), this.getSyntaxTreeNode(), this.getSyntaxTreeNode_Parent(), "children", null, 0, -1, SyntaxTreeNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSyntaxTreeNode_Parent(), this.getSyntaxTreeNode(), this.getSyntaxTreeNode_Children(), "parent", null, 0, 1, SyntaxTreeNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSyntaxTreeNode_Tokens(), this.getToken(), null, "tokens", null, 0, -1, SyntaxTreeNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
